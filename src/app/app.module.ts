@@ -3,8 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { AppComponent } from './app.component';
+// Firebase
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
+import { environment } from 'src/environments/environment';
+
+import { AppComponent } from './app.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { IngresoEgresoComponent } from './features/ingreso-egreso/ingreso-egreso.component';
 import { FooterComponent } from './shared/footer/footer.component';
@@ -25,6 +31,8 @@ const components = [
 ];
 
 const modules = [
+  AngularFireAuthModule,
+  AngularFirestoreModule,
   BrowserModule,
   AppRoutingModule,
   FormsModule,
@@ -32,7 +40,10 @@ const modules = [
 ];
 @NgModule({
   declarations: [...components],
-  imports: [...modules],
+  imports: [
+    ...modules,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
