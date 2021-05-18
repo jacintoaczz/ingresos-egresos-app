@@ -3,9 +3,15 @@ import { dashboardRoutes } from './features/dashboard/dashboard.routes';
 
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
+import { AuthGuard } from './features/auth/guards/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent, children: dashboardRoutes },
+  {
+    path: '',
+    component: DashboardComponent,
+    children: dashboardRoutes,
+    canActivate: [AuthGuard],
+  },
   {
     path: 'auth',
     loadChildren: () =>
