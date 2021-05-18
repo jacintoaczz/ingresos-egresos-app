@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -6,11 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-  constructor() {}
+  constructor(private _authService: AuthService) {}
 
   ngOnInit(): void {}
 
   onSubmit(formData: any) {
-    console.log(formData);
+    this._authService.crearUsuario(
+      formData.nombre,
+      formData.email,
+      formData.password
+    );
   }
 }
