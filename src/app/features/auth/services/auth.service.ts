@@ -12,11 +12,15 @@ import {
   DESACTIVAR_LOADING,
 } from 'src/app/shared/state/ui.actions';
 import { AppState } from 'src/app/state/app.reducer';
+import { SETEAR_USUARIO } from '../state/auth.actions';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private userSubscription: Subscription = new Subscription();
+
   constructor(
     private _afAuth: AngularFireAuth,
     private _router: Router,
@@ -27,7 +31,18 @@ export class AuthService {
   public initAuthListener() {
     this._afAuth.authState.subscribe(
       (fbUser: firebase.default.UserInfo | null) => {
-        console.log(fbUser);
+        if (fbUser) {
+          this.userSubscription = this._afDatabase
+            .doc(`${fbUser?.uid}/usuario`)
+            .valueChanges()
+            .subscribe((userObj: any) => {
+              const newUser = new User(userObj);
+
+              this._store.dispatch(SETEAR_USUARIO({ newUser }));
+            });
+        } else {
+          this.userSubscription.unsubscribe();
+        }
       }
     );
   }
