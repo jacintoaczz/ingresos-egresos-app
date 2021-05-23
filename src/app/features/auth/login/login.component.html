@@ -45,6 +45,7 @@
             </div>
             <div class="form-group">
               <button
+                *ngIf="!(cargando$ | async)"
                 class="btn btn-primary submit-btn btn-block"
                 [disabled]="loginForm.invalid"
               >
