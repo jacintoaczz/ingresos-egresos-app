@@ -1,11 +1,17 @@
 export class User {
-  public nombre: string;
+  public nombre: string | null;
   public email: string | null | undefined;
-  public uid: string | undefined;
+  public uid: string | null | undefined;
 
-  constructor(nombre: string, email: string, uid: string) {
-    this.nombre = nombre;
-    this.email = email;
-    this.uid = uid;
+  constructor(userObject: ObjectData) {
+    this.nombre = (userObject && userObject.nombre) || null;
+    this.email = (userObject && userObject.email) || null;
+    this.uid = (userObject && userObject.uid) || null;
   }
+}
+
+interface ObjectData {
+  uid: string;
+  email: string;
+  nombre: string;
 }
