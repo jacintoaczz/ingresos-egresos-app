@@ -18,6 +18,9 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { DetalleComponent } from './features/ingreso-egreso/detalle/detalle.component';
 import { EstadisticaComponent } from './features/ingreso-egreso/estadistica/estadistica.component';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 const components = [
   AppComponent,
@@ -43,6 +46,8 @@ const modules = [
   imports: [
     ...modules,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    StoreModule.forRoot({}, {}),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   providers: [],
   bootstrap: [AppComponent],
