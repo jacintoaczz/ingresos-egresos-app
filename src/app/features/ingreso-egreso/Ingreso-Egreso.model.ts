@@ -1,5 +1,5 @@
 export class IngresoEgreso {
-  descripcion: string | null;
+  descripcion: string | null | undefined;
   monto: number | null;
   tipo: string | null;
   uid?: string | null;
@@ -8,7 +8,7 @@ export class IngresoEgreso {
     this.descripcion = (dataObject && dataObject.descripcion) || null;
     this.monto = (dataObject && dataObject.monto) || null;
     this.tipo = (dataObject && dataObject.tipo) || null;
-    this.uid = (dataObject && dataObject.uid) || null;
+    // this.uid = (dataObject && dataObject.uid) || null;
   }
 }
 
